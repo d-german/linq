@@ -33,21 +33,16 @@ public class HigherOrderFunctionsTests
         Assert.That(result, Is.EqualTo(expected));
     }
 
-    // TODO: Complete this test by addressing the TODO comments.
     [Test]
     public void TestCapitalizeFunction()
     {
-        
         string[] words = { "hello", "world", "example" };
         string[] expected = { "HELLO", "WORLD", "EXAMPLE" };
-    
-        // TODO: Apply the Capitalize function to the input array of words and store the result
-        // var result = ...
        
-    
-        // TODO: uncomment after using the ApplyFunctionToArray method with the Capitalize function
-       // Assert.That(result, Is.EqualTo(expected));
+        var result = ApplyFunctionToArray(words, Capitalize);
+        Assert.That(result, Is.EqualTo(expected));
     }
+}
 }
 ```
 
