@@ -4,9 +4,9 @@ namespace _02_linq_tests;
 
 public class LinqTests
 {
-    private List<Person> _persons;
+    private List<Person> _persons = null!;
 
-    private List<int> _values;
+    private List<int> _values = null!;
 
     [SetUp]
     public void Init()

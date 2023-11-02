@@ -6,7 +6,7 @@ public class PLinqTests
 {
     private const int Max = 100000000;
     private static readonly int[] Values;
-    private Stopwatch _stopWatch;
+    private Stopwatch _stopWatch = null!;
 
     [SetUp]
     public void Init()
