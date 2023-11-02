@@ -16,6 +16,7 @@ public class HigherOrderFunctionsTests
 
         return result;
     }
+    
     [Test]
     public void TestSquareFunction()
     {
