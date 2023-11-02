@@ -172,3 +172,42 @@ internal sealed class FullTextSearchService : IFullTextSearchService
 ```
 
 ![Full Text Search Results](./hcw-full-text-demo.png)
+
+The `FullTextSearchService` class is a comprehensive implementation of an `IFullTextSearchService` interface, which is responsible for performing full-text search operations within a system. Here's a breakdown of its functionalities and the internal workings:
+
+- **Fields**: The class has several private readonly fields representing various dependencies required to perform full-text search operations, such as access to the full-text engine, data access providers, repositories, document data providers, and session information.
+
+- **Constructor**: The constructor takes instances of the dependencies as arguments and uses the null-coalescing operator to ensure none of the provided instances are null, throwing an `ArgumentNullException` if they are.
+
+- **`ExecuteFTSQuerySearch` Method**:
+    - This method takes a search query and a list of document IDs to perform a full-text search.
+    - It overrides security checks for the session, presumably to allow for a broader search than the user's regular permissions would allow.
+    - It then builds a legacy query with the provided document IDs and search string, executes it, and processes the results to return an array of tuples containing document IDs and their corresponding search results.
+
+- **`BuildLegacyQuery` Helper Method**:
+    - Constructs a legacy query using a factory pattern.
+    - Sets the search term and, if a list of document IDs is provided, adds constraints to the query based on these IDs.
+
+- **`GetFullTextSearchResults` Helper Method**:
+    - Processes the results from the server to get the top-scored results, which are then parallelized to improve performance.
+    - For each result, it creates a content index identifier, compiles the full-text search results including paginated document properties, hit counts, summaries, and full-text page data items.
+    - It returns an immutable array of the compiled results.
+
+- **`GetTopScoredResults` Static Helper Method**:
+    - Filters the server results to only include those with a non-null highest score and returns these top-scored results.
+
+- **`CreateContentIndexFrom` Static Helper Method**:
+    - Creates and returns a `ContentIndexIdentifier` object from a `ServerResult`, which contains information about the content type, IDs, and document type IDs.
+
+- **`GetFullTextPageHitData` Helper Method**:
+    - Retrieves and processes full-text page data based on the search query and a content index identifier.
+    - If the content is paginated, it retrieves the full-text object ID, retrieves the index from the full-text repository, and then gets the pages with hits from the full-text engine.
+    - Orders the pages, parallelizes the processing, and builds full-text page data for each page number.
+
+- **`BuildFullTextPageData` Helper Method**:
+    - Constructs `FullTextPageData` objects for each page, including page number, hit highlight coordinates, and page image properties.
+
+- **`GetPageData` Helper Method**:
+    - Retrieves page data for a given page number and content index identifier, specifying the page properties and content type.
+
+Overall, this class is a thorough implementation for a full-text search system, encapsulating the logic for querying, processing, and returning search results. It leverages parallel processing and immutable collections to ensure thread-safety and consistent data. The use of a session to override security checks indicates that this service might be used in a context where administrative-level search capabilities are required.
