@@ -3,18 +3,21 @@
 ## Objective
 Complete the implementation of the `GetProductsCheaperThan` method in the `Inventory` class to return products priced below a specified value using LINQ.
 
-## Background: C# Named Tuples
-C# named tuples allow you to provide meaningful names to the properties of a tuple, enhancing the readability and maintainability of your code.
+### C# Named Tuples
 
-### Example of Named Tuples
+Named tuples in C# group related values without defining a formal class or struct. They provide semantic meaning to tuple fields through naming.
+
+### Why Named Tuples?
+- **Clarity**: Access tuple elements by name instead of position for clearer code.
+- **Convenience**: Simplify methods that need to return multiple values.
+
+### Example
 ```csharp
-// Creating a named tuple
-var productInfo = (Name: "Notebook", Price: 3.99m);
-
-// Accessing elements
-Console.WriteLine(productInfo.Name);  // Output: Notebook
-Console.WriteLine(productInfo.Price); // Output: 3.99
+var book = (Title: "1984", Author: "Orwell");
+Console.WriteLine(book.Title); // Outputs "1984"
 ```
+
+Named tuples are ideal for lightweight data structures where temporary grouping of items is needed with the benefit of named properties for easy access.
 
 ## Assignment Details
 Given a `Product` record and an `Inventory` class with predefined products, your task is to implement the `GetProductsCheaperThan` method. This method should use LINQ to filter products by price and return their name and price.
@@ -38,7 +41,7 @@ public class Inventory
     };
 
     // Implement this method using LINQ.
-    public IEnumerable<(string Name, decimal Price)> GetProductsCheaperThan(decimal maxPrice)
+    public IEnumerable<(string? Name, decimal Price)> GetProductsCheaperThan(decimal maxPrice)
     {
         // TODO: Use LINQ to filter _products and return a sequence of named tuples (Name, Price).
         throw new NotImplementedException();

@@ -19,14 +19,13 @@ public class Inventory
         // ... Other products
     };
    
+    // note: were returning a named tuple here
     public IEnumerable<(string? Name, decimal Price)> GetProductsCheaperThan(decimal maxPrice)
     {
-        return _products
-            .Where(product => product.Price < maxPrice)
-            .Select(product => (product.Name, product.Price));
+        // TODO: Use LINQ to filter _products and return a sequence of named tuples (Name, Price).
+        throw new NotImplementedException();
     }
 }
-
 
 public class ProductsTests
 {
